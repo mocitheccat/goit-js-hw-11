@@ -84,6 +84,6 @@ export function renderErrorMessages(errorMessage) {
 }
 
 export function toggleLoader() {
-  const imageContainer = document.querySelector('.image-container');
+  const imageContainer = document.querySelector('.gallery');
   imageContainer.classList.toggle('loader');
 }

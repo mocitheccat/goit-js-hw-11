@@ -53,32 +53,31 @@ button {
 
 .gallery {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
-  list-style: none;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
   padding: 0;
-
-  margin: -24px;
-}
-
-.image-container {
-  width: 100%;
+  list-style: none;
 }
 
 .image-card {
-  width: calc((100% - 72px) / 3);
-  height: 200px;
-  margin: 12px;
+  width: calc((100% - 48px) / 3);
+  height: 360px;
+  margin-bottom: 24px;
   border: 1px solid #808080;
+}
+@media only screen and (min-width: 480px) {
+  .image-card:not(:nth-child(3n)) {
+    margin-right: 24px;
+  }
+  .image-card:last-child {
+    margin-right: 0;
+  }
 }
 
 .gallery-image {
-  display: block;
-  width: 100%;
-  height: 152px;
-  margin: 0;
-  padding: 0;
+  height: 300px;
 }
 
 .image {
@@ -87,6 +86,10 @@ button {
   margin: 0;
   padding: 0;
   object-fit: cover;
+}
+
+.img-caption {
+  height: 60px;
 }
 
 .img-stats {
@@ -100,18 +103,10 @@ button {
   padding: 0;
 }
 
-.img-caption {
-  display: block;
-  height: 48px;
-  text-align: center;
-}
-
 .stat-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: black;
+  padding: 0;
+  margin: 0;
+  text-align: center;
 }
 
 .stat-name {
@@ -129,6 +124,24 @@ button {
   line-height: 24px;
   letter-spacing: 0.04em;
 }
+
+@media only screen and (max-width: 480px) {
+  .container {
+    padding: 16px;
+  }
+
+  .gallery {
+    flex-direction: column;
+  }
+
+  .image-card {
+    width: calc(100vw - 16px);
+    height: 360px;
+    margin-bottom: 16px;
+  }
+}
+
+/* LOADER  */
 
 .loader {
   width: 48px;
