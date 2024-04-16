@@ -8,9 +8,6 @@ export function getImages(query) {
     orientation: 'horizontal',
     safesearch: true,
   });
-  if (!query) {
-    return Promise.reject(new Error('Enter a query'));
-  }
   return fetch(`https://pixabay.com/api/?${searchParams.toString()}`)
     .then(response => {
       if (!response.ok) {
@@ -21,6 +18,5 @@ export function getImages(query) {
     .then(data => data.hits)
     .catch(err => {
       console.log(err);
-      return null;
     });
 }

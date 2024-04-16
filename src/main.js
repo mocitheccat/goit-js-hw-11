@@ -1,14 +1,26 @@
 import { getImages } from './js/pixabay-api';
-import { render } from './js/render-functions';
+import {
+  render,
+  renderErrorMessages,
+  toggleLoader,
+} from './js/render-functions';
 
-const formElements = document.querySelector('.search-form').elements;
-const input = formElements['input'];
-const searchBtn = formElements['submit'];
-let query;
-input.addEventListener('input', e => {
-  query = e.target.value.trim().toLowerCase();
-});
-searchBtn.addEventListener('click', e => {
+const formRef = document.querySelector('.search-form');
+const input = formRef['input'];
+
+formRef.addEventListener('submit', e => {
   e.preventDefault();
-  getImages(query).then(imgs => render(imgs));
+
+  const query = input.value.trim().toLowerCase();
+
+  if (!query) {
+    renderErrorMessages('Please enter a search query.');
+    return;
+  }
+
+  toggleLoader();
+
+  getImages(query)
+    .then(imgs => render(imgs))
+    .catch(err => renderErrorMessages(err.message));
 });

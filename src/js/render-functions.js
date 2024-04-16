@@ -6,6 +6,14 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 export function render(imgs) {
   const galleryRef = document.querySelector('.gallery');
 
+  if (imgs.length === 0) {
+    renderErrorMessages(
+      'Sorry, there are no images matching your search query. Please try again!'
+    );
+  }
+
+  clearGallery(galleryRef);
+
   const markup = imgs
     .map(
       ({
@@ -47,6 +55,8 @@ export function render(imgs) {
     )
     .join('');
 
+  toggleLoader();
+
   galleryRef.insertAdjacentHTML('beforeend', markup);
 
   const lightboxOptions = {
@@ -60,4 +70,20 @@ export function render(imgs) {
 
   const lightbox = new SimpleLightbox('.img-link', lightboxOptions);
   lightbox.refresh();
+}
+
+function clearGallery(galleryRef) {
+  galleryRef.innerHTML = '';
+}
+
+export function renderErrorMessages(errorMessage) {
+  iziToast.error({
+    message: errorMessage,
+    position: 'topRight',
+  });
+}
+
+export function toggleLoader() {
+  const imageContainer = document.querySelector('.image-container');
+  imageContainer.classList.toggle('loader');
 }
