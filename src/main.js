@@ -3,10 +3,12 @@ import {
   render,
   renderErrorMessages,
   toggleLoader,
+  clearGallery
 } from './js/render-functions';
 
 const formRef = document.querySelector('.search-form');
 const input = formRef['input'];
+const galleryRef = document.querySelector('.gallery');
 
 formRef.addEventListener('submit', e => {
   e.preventDefault();
@@ -17,10 +19,11 @@ formRef.addEventListener('submit', e => {
     renderErrorMessages('Please enter a search query.');
     return;
   }
+  clearGallery(galleryRef);
 
-  toggleLoader();
+  toggleLoader(galleryRef);
 
   getImages(query)
-    .then(imgs => render(imgs))
+    .then(imgs => render(galleryRef, imgs))
     .catch(err => renderErrorMessages(err.message));
 });

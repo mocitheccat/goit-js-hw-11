@@ -3,16 +3,12 @@ import SimpleLightbox from 'simplelightbox';
 import 'izitoast/dist/css/iziToast.min.css';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-export function render(imgs) {
-  const galleryRef = document.querySelector('.gallery');
-
+export function render(galleryRef, imgs) {
   if (imgs.length === 0) {
     renderErrorMessages(
       'Sorry, there are no images matching your search query. Please try again!'
     );
   }
-
-  clearGallery(galleryRef);
 
   const markup = imgs
     .map(
@@ -55,7 +51,7 @@ export function render(imgs) {
     )
     .join('');
 
-  toggleLoader();
+  toggleLoader(galleryRef);
 
   galleryRef.insertAdjacentHTML('beforeend', markup);
 
@@ -72,7 +68,7 @@ export function render(imgs) {
   lightbox.refresh();
 }
 
-function clearGallery(galleryRef) {
+export function clearGallery(galleryRef) {
   galleryRef.innerHTML = '';
 }
 
@@ -83,7 +79,6 @@ export function renderErrorMessages(errorMessage) {
   });
 }
 
-export function toggleLoader() {
-  const imageContainer = document.querySelector('.gallery');
-  imageContainer.classList.toggle('loader');
+export function toggleLoader(galleryRef) {
+  galleryRef.classList.toggle('loader');
 }
